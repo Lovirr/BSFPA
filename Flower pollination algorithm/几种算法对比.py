@@ -6,23 +6,23 @@ import os
 import time
 
 # 定义目标函数
-fitness_function = cec2005.fun19
+fitness_function = cec2005.fun5
 
 # 维度
-dim = 3
+dim = 30
 
 # 搜索空间范围
-bounds = 1
+bounds = 30
 
 # 最大迭代次数
-epoch = 3000
+epoch = 1000
 
 # 种群数量
 pop_size = 50
 
 problem = {
     "fit_func": fitness_function,
-    "lb": [0, ] * dim,
+    "lb": [-bounds, ] * dim,
     "ub": [bounds, ] * dim,
     "minmax": "min",
 }

@@ -23,7 +23,7 @@ problem = {
     "save_population": False,
 }
 
-epoch = 8000  # 最大迭代次数
+epoch = 1000  # 最大迭代次数
 pop_size = 50  # 种群数量
 
 ## 运行
