@@ -65,7 +65,7 @@ plt.ylabel('Fitness') # 设置y轴标签
 
 plt.grid() # 显示网格
 plt.legend() # 显示图例
-plt.savefig(filename) # 保存图像
+# plt.savefig(filename) # 保存图像
 plt.show() # 显示图像
 
 # 播放提示音
