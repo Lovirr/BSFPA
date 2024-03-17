@@ -66,7 +66,7 @@ for _ in range(count):
 
     plt.grid()  # 显示网格
     plt.legend()  # 显示图例
-    plt.savefig(filename)  # 保存图像
+    plt.savefig('Data/'+filename)  # 保存图像
     plt.show()
 
     # 打开现有的工作簿

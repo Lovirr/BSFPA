@@ -16,7 +16,7 @@ dim = 30
 bounds = 100
 
 # 最大迭代次数
-epoch = 1000
+epoch = 1
 
 # 种群数量
 pop_size = 50
@@ -55,7 +55,7 @@ plt.ylabel('Fitness')  # 设置y轴标签
 
 plt.grid()  # 显示网格
 plt.legend()  # 显示图例
-# plt.savefig(filename)  # 保存图像
+plt.savefig('Data/'+filename)  # 保存图像
 plt.show()  # 显示图像
 
 # 播放提示音
