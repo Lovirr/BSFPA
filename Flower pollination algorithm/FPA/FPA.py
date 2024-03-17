@@ -1,6 +1,8 @@
+import random
+
 import numpy as np
 from matplotlib import pyplot as plt
-import random
+
 
 # 初始化种群
 def init(n_pop, lb, ub, nd):
@@ -16,7 +18,7 @@ def init(n_pop, lb, ub, nd):
 
 # 适应度函数
 
-  # 函数句柄
+# 函数句柄
 
 
 # Levy飞行Beale
