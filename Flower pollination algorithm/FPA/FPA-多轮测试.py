@@ -7,7 +7,7 @@ from mealpy import FPA
 from openpyxl import load_workbook
 
 # 定义目标函数
-fitness_function = cec2005.fun1
+fitness_function = cec2005.fun3
 
 # 维度
 dim = 30
@@ -28,7 +28,7 @@ row = 1
 col = 'A'
 
 # 循环次数
-count = 20
+count = 15
 
 problem = {
     "fit_func": fitness_function,
@@ -60,7 +60,7 @@ for _ in range(count):
 
     plt.grid()  # 显示网格
     plt.legend()  # 显示图例
-    plt.savefig('Data/' + filename)  # 保存图像
+    # plt.savefig('Data/' + filename)  # 保存图像
     # plt.show()
 
     # 打开现有的工作簿
@@ -78,8 +78,11 @@ for _ in range(count):
 
     # 保存工作簿
     workbook.save('Data/testdata.xlsx')
+    print(str(row) + '/' + str(count))
 
     row += 1
 
 # 播放提示音
 os.system('afplay /Users/lovir/Music/三全音.aif')
+
+print(function_name + ' is done！')

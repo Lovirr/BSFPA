@@ -77,7 +77,7 @@ for _ in range(count):
 
     # 保存工作簿
     workbook.save('Data/testdata.xlsx')
-    print(row + '/' + count)
+    print(str(row) + '/' + str(count))
 
     row += 1
 
