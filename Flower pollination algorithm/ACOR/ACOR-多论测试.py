@@ -7,13 +7,13 @@ from mealpy import ACOR
 from openpyxl import load_workbook
 
 # 定义目标函数
-fitness_function = cec2005.fun2
+fitness_function = cec2005.fun4
 
 # 维度
 dim = 30
 
 # 搜索空间范围
-bounds = 10
+bounds = 100
 
 # 最大迭代次数
 epoch = 1000
