@@ -7,13 +7,13 @@ from mealpy import FPA
 from openpyxl import load_workbook
 
 # 定义目标函数
-fitness_function = cec2005.fun10
+fitness_function = cec2005.fun13
 
 # 维度
 dim = 30
 
 # 搜索空间范围
-bounds = 32
+bounds = 50
 
 # 最大迭代次数
 epoch = 5000
