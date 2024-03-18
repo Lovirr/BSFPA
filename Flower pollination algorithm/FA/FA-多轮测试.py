@@ -16,7 +16,7 @@ dim = 2
 bounds = 65.536
 
 # 最大迭代次数
-epoch = 3000
+epoch = 1000
 
 # 种群数量
 pop_size = 50
@@ -28,14 +28,14 @@ row = 1
 col = 'A'
 
 # 循环次数
-count = 15
+count = 10
 
 problem = {
     "fit_func": fitness_function,
     "lb": [-bounds, ] * dim,
     "ub": [bounds, ] * dim,
     "minmax": "min",
-    "log_to": None
+    # "log_to": None
 }
 
 for _ in range(count):
