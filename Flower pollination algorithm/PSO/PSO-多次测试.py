@@ -7,13 +7,13 @@ from mealpy import PSO
 from openpyxl import load_workbook
 
 # 定义目标函数
-fitness_function = cec2005.fun14
+fitness_function = cec2005.fun23
 
 # 维度
-dim = 2
+dim = 4
 
 # 搜索空间范围
-bounds = 65.536
+bounds = 10
 
 # 最大迭代次数
 epoch = 3000
@@ -32,7 +32,7 @@ count = 15
 
 problem = {
     "fit_func": fitness_function,
-    "lb": [-bounds, ] * dim,
+    "lb": [0, ] * dim,
     "ub": [bounds, ] * dim,
     "minmax": "min",
     "log_to": None
