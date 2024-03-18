@@ -7,16 +7,16 @@ from mealpy import PSO
 from openpyxl import load_workbook
 
 # 定义目标函数
-fitness_function = cec2005.fun8
+fitness_function = cec2005.fun14
 
 # 维度
-dim = 30
+dim = 2
 
 # 搜索空间范围
-bounds = 500
+bounds = 65.536
 
 # 最大迭代次数
-epoch = 1000
+epoch = 3000
 
 # 种群数量
 pop_size = 50
@@ -77,8 +77,11 @@ for _ in range(count):
 
     # 保存工作簿
     workbook.save('Data/testdata.xlsx')
+    print(str(row) + '/' + str(count))
 
     row += 1
 
 # 播放提示音
 # os.system('afplay /Users/lovir/Music/三全音.aif')
+
+print(function_name + ' is done！')
