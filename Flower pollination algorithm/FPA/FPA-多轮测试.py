@@ -7,16 +7,16 @@ from mealpy import FPA
 from openpyxl import load_workbook
 
 # 定义目标函数
-fitness_function = cec2005.fun13
+fitness_function = cec2005.fun23
 
 # 维度
-dim = 30
+dim = 4
 
 # 搜索空间范围
-bounds = 50
+bounds = 10
 
 # 最大迭代次数
-epoch = 5000
+epoch = 3000
 
 # 种群数量
 pop_size = 50
@@ -32,7 +32,7 @@ count = 15
 
 problem = {
     "fit_func": fitness_function,
-    "lb": [-bounds, ] * dim,
+    "lb": [0, ] * dim,
     "ub": [bounds, ] * dim,
     "minmax": "min",
     "log_to": None
