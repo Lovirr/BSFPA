@@ -7,16 +7,16 @@ from mealpy import FA
 from openpyxl import load_workbook
 
 # 定义目标函数
-fitness_function = cec2005.fun11
+fitness_function = cec2005.fun14
 
 # 维度
-dim = 30
+dim = 2
 
 # 搜索空间范围
-bounds = 600
+bounds = 65.536
 
 # 最大迭代次数
-epoch = 5000
+epoch = 3000
 
 # 种群数量
 pop_size = 50
