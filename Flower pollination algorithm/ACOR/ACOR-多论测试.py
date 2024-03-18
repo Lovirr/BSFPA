@@ -7,16 +7,16 @@ from mealpy import ACOR
 from openpyxl import load_workbook
 
 # 定义目标函数
-fitness_function = cec2005.fun8
+fitness_function = cec2005.fun10
 
 # 维度
 dim = 30
 
 # 搜索空间范围
-bounds = 500
+bounds = 32
 
 # 最大迭代次数
-epoch = 5000
+epoch = 2000
 
 # 种群数量
 pop_size = 50
@@ -28,7 +28,7 @@ row = 1
 col = 'A'
 
 # 循环次数
-count = 10
+count = 8
 
 problem = {
     "fit_func": fitness_function,
