@@ -1,98 +1,152 @@
-import random
-
 import numpy as np
 from matplotlib import pyplot as plt
 
+plt.style.use('ggplot')
 
-# 初始化种群
-def init(n_pop, lb, ub, nd):
-    """
-    :param n_pop: 种群
-    :param lb: 下界
-    :param ub: 上界
-    :param nd: 维数
-    """
-    p = lb + (ub - lb) * np.random.rand(n_pop, nd)
-    return p
+plt.rcParams["font.sans-serif"] = ["PingFang HK"]
+plt.rcParams["axes.unicode_minus"] = False
 
 
-# 适应度函数
-
-# 函数句柄
-
-
-# Levy飞行Beale
-def Levy(nd, beta=1.5):
-    num = np.random.gamma(1 + beta) * np.sin(np.pi * beta / 2)
-    den = np.random.gamma((1 + beta) / 2) * beta * 2 ** ((beta - 1) / 2)
-    sigma_u = (num / den) ** (1 / beta)
-
-    u = np.random.normal(0, sigma_u ** 2, (1, nd))
-    v = np.random.normal(0, 1, (1, nd))
-
-    z = u / (np.abs(v) ** (1 / beta))
-    return z
+# 目标函数
+def default(x):
+    y = np.sum(x * x)
+    return y
 
 
-def FPA(Max_g, n_pop, Pop, nd, lb, ub, detail):  # FPA算法
-    """
-    :param Max_g: 迭代次数
-    :param n_pop: 种群数目
-    :param Pop: 花粉配子
-    :param nd: 维数
-    :param lb: 下界
-    :param ub: 上界
-    :param detail: 显示详细信息
-    """
-    # 计算初始种群中最好个体适应度值
-    pop_score = f_score(Pop)
-    g_best = np.min(pop_score)
-    g_best_loc = np.argmin(pop_score)
-    g_best_p = Pop[g_best_loc, :].copy()
+class FPA:
+    def __init__(self, num_pop, dim, ub, lb, f_obj, verbose):
+        self.num_pop = num_pop  # 种群数目
+        self.dim = dim  # 维数
+        self.ub = ub  # 上界
+        self.lb = lb  # 下界
+        self.pop = np.empty((num_pop, dim))  # 种群
+        self.f_obj = f_obj  # 目标函数
+        self.f_score = np.empty((num_pop, 1))
+        self.verbose = verbose  # 显示
 
-    # 问题设置
-    p = 0.8
-    best_fit = np.empty((Max_g,))
-    # 迭代
-    for it in range(1, Max_g + 1):
-        for i in range(n_pop):
-            if np.random.rand() < p:
-                new_pop = Pop[i, :] + Levy(nd) * (g_best_p - Pop[i, :])
-                new_pop = np.clip(new_pop, lb, ub)  # 越界处理
-            else:
-                idx = random.sample(list(range(n_pop)), 2)
-                new_pop = Pop[i, :] + np.random.rand() * (Pop[idx[1], :] - Pop[idx[0], :])
-                new_pop = np.clip(new_pop, lb, ub)  # 越界处理
-            if f_score(new_pop.reshape((1, -1))) < f_score(Pop[i, :].reshape((1, -1))):
-                Pop[i, :] = new_pop
-                # 计算更新后种群中最好个体适应度值
-        pop_score = f_score(Pop)
-        new_g_best = np.min(pop_score)
-        new_g_best_loc = np.argmin(pop_score)
+        self.p_best = None  # 最好个体
+        self.f_best = None  # 最好适应度值
 
-        if new_g_best < g_best:
-            g_best = new_g_best
-            g_best_p = Pop[new_g_best_loc, :].copy()
-        best_fit[it - 1] = g_best
+        self.iter_f_score = []
 
-        if detail:
-            print("----------------{}/{}--------------".format(it, Max_g))
-            print(g_best)
-            print(g_best_p)
+    def initialize(self):
+        """
+        种群初始化
+        :return: 初始化种群和种群分数
+        """
+        num_boundary = len(self.ub)
+        if num_boundary == 1:
+            for i in range(self.num_pop):
+                self.pop[i, :] = self.lb + (self.ub - self.lb) * np.random.rand(1, self.dim).flatten()
+                self.f_score[i] = self.f_obj(self.pop[i, :])
+        else:
+            for i in range(self.dim):
+                self.pop[:, i] = self.lb[i] + (self.ub[i] - self.lb[i]) * np.random.rand(self.num_pop, 1).flatten()
+            for i in range(self.num_pop):
+                self.f_score[i] = self.f_obj(self.pop[i, :])
+        return [self.pop, self.f_score]
 
-    return best_fit, g_best
+    def get_best(self):
+        """
+        获取最优解
+        :return: 最优索引和最优得分
+        """
+        idx = np.argmin(self.f_score)
+        self.p_best = self.pop[idx, :]
+        self.f_best = np.min(self.f_score)
+        return [self.p_best, self.f_best]
+
+    def Levy(self, beta=1.5):
+        """
+        莱维飞行
+        :param beta: 固定参数
+        :return: 随机数
+        """
+        sigma = (np.random.gamma(1 + beta) * np.sin(np.pi * beta / 2) / (
+                np.random.gamma((1 + beta) / 2) * beta * 2 ** ((beta - 1) / 2))) ** (1 / beta)
+        # print(sigma)
+        u = np.random.normal(0, sigma, (1, self.dim))
+        v = np.random.normal(0, 1, (1, self.dim))
+        levy = u / (np.abs(v) ** (1 / beta))
+        return levy
+
+    def clip(self, p):
+        """
+        :param p: 花粉配子
+        :return: 越界处理后的花粉配子
+        """
+        i = p < self.lb
+        p[i] = np.array(self.lb)[i]
+        j = p > self.ub
+        p[j] = np.array(self.ub)[j]
+        return p
+
+    def fit(self, max_generation, p=0.8):
+        """
+        算法迭代
+        :param max_generation: 最大迭代次数
+        :param p: 切换概率
+        :return: 最优值和最优个体
+        """
+        self.pop, self.f_score = self.initialize()  # 初始化
+        self.p_best, self.f_best = self.get_best()  # 当前最优个体
+
+        self.iter_f_score.append(self.f_best)
+
+        # 迭代
+        for i in range(max_generation):
+            for j in range(self.num_pop):
+                if np.random.rand() < p:
+                    # 异花授粉公式
+                    new_pop = self.pop[j, :] + self.Levy() * (self.pop[j, :] - self.p_best)
+                else:
+                    # 自花授粉公式
+                    idx_set = np.random.choice(range(self.num_pop), 2)
+                    new_pop = self.pop[j, :] + np.random.rand(1, self.dim) * (self.pop[idx_set[0], :] -
+                                                                              self.pop[idx_set[1], :])
+
+                # 越界处理
+                new_pop = self.clip(new_pop.flatten())
+                new_f_score = self.f_obj(new_pop)
+
+                # 进化算法
+                if new_f_score < self.f_score[j]:
+                    self.pop[j, :] = new_pop
+                    self.f_score[j] = new_f_score
+
+                if new_f_score < self.f_best:
+                    self.p_best = new_pop
+                    self.f_best = new_f_score
+
+            self.iter_f_score.append(self.f_best)
+
+            if self.verbose:
+                print("============{}/{}==============".format(i, max_generation))
+                print(self.f_best)
+
+        return [self.iter_f_score, self.f_best]
 
 
+# 测试
 if __name__ == "__main__":
-    dim = 30  # 变量维度
-    pop = init(500, -100, 100, dim)
-    fitness, g_best = FPA(1000, 500, pop, dim, -100, 100, False)
+    n_pop = 50
+    d = 30
+    upper = [100, ]*d
+    lower = [-100,]*d
 
-    # 可视化
-    plt.figure()
-    # plt.plot(fitness)
-    plt.semilogy(fitness)
-    # 可视化
-    # fig = plt.figure()
-    # plt.plot(p1, fit)
+    max_iter = 3000
+
+    fpa = FPA(n_pop, d, upper, lower, default, True)
+    iter_score, _ = fpa.fit(max_iter)
+
+    xx = [int(i) for i in range(0, max_iter+1, 50)]
+    yy = np.array(iter_score)
+    print(fpa.p_best)
+
+    plt.figure(figsize=(8, 6), dpi=300)
+    plt.title("收敛曲线")
+    plt.plot(xx, yy[xx], c='k', marker='.')
+    plt.xlim([0, max_iter])
+    plt.xlabel("迭代次数")
+    plt.ylabel("适应度值")
     plt.show()
