@@ -4,3 +4,5 @@ Function image/
 .idea/
 .DS_Store
 results/
+node_modules/
+Data/

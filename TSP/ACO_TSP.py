@@ -27,7 +27,7 @@ def read(filename,city_name,city_condition):
                 city_name.append(z)
                 city_condition.append((x, y))
     return city_name,city_condition
-city_name,city_condition = read('TSPLIB/ulysses22.tsp',city_name,city_condition)
+city_name,city_condition = read('TSPLIB/chn31.tsp',city_name,city_condition)
 
 
 #Distance距离矩阵

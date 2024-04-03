@@ -8,10 +8,25 @@ def fun1(x):
     return y
 
 
+problem1 = {
+    "dim": 30,
+    "lb": [-100, ] * 30,
+    "ub": [100, ] * 30,
+    "best": 0
+}
+
+
 # Schwefel's Problem 2.22
 def fun2(x):
     y = np.sum(np.abs(x)) + np.prod(np.abs(x))
     return y
+
+problem2 = {
+    "dim": 30,
+    "lb": [-10, ] * 30,
+    "ub": [10, ] * 30,
+    "best": 0
+}
 
 
 # Schwefel's Problem 1.2
@@ -21,12 +36,25 @@ def fun3(x):
         y = y + np.square(np.sum(x[0:i + 1]))
     return y
 
+problem3 = {
+    "dim": 30,
+    "lb": [-100, ] * 30,
+    "ub": [100, ] * 30,
+    "best": 0
+}
+
 
 # Schwefel's Problem 2.21
 def fun4(x):
     y = np.max(np.abs(x))
     return y
 
+problem4 = {
+    "dim": 30,
+    "lb": [-100, ] * 30,
+    "ub": [100, ] * 30,
+    "best": 0
+}
 
 # Generalized Rosenbrock's Function
 def fun5(x):
@@ -34,12 +62,24 @@ def fun5(x):
     y = np.sum(100 * np.square(x[1:x_len] - np.square(x[0:x_len - 1]))) + np.sum(np.square(x[0:x_len - 1] - 1))
     return y
 
+problem5 = {
+    "dim": 30,
+    "lb": [-30, ] * 30,
+    "ub": [30, ] * 30,
+    "best": 0
+}
 
 # Step Function
 def fun6(x):
     y = np.sum(np.square(np.abs(x + 0.5)))
     return y
 
+problem6 = {
+    "dim": 30,
+    "lb": [-100, ] * 30,
+    "ub": [100, ] * 30,
+    "best": 0
+}
 
 # Quartic Function i.e. Noise
 def fun7(x):
@@ -47,6 +87,12 @@ def fun7(x):
     y = np.sum(i * (x ** 4)) + np.random.random()
     return y
 
+problem7 = {
+    "dim": 30,
+    "lb": [-1.28, ] * 30,
+    "ub": [1.28, ] * 30,
+    "best": 0
+}
 
 # 多峰测试函数
 # Generalized Schwefel's Problem 2.26
@@ -54,6 +100,12 @@ def fun8(x):
     y = np.sum(-x * np.sin(np.sqrt(np.abs(x))))
     return y
 
+problem8 = {
+    "dim": 30,
+    "lb": [200, ] * 30,
+    "ub": [500, ] * 30,
+    "best": -12569.5
+}
 
 # Generalized Rastrigin's Function
 def fun9(x):
@@ -61,6 +113,12 @@ def fun9(x):
     y = np.sum(x ** 2 - 10 * np.cos(2 * np.pi * x)) + 10 * dim
     return y
 
+problem9 = {
+    "dim": 30,
+    "lb": [-5.12, ] * 30,
+    "ub": [5.12, ] * 30,
+    "best": 0
+}
 
 # Ackley's Function
 def fun10(x):
@@ -71,6 +129,12 @@ def fun10(x):
     y = sum_1 - sum_2 + a + np.exp(1)
     return y
 
+problem10 = {
+    "dim": 30,
+    "lb": [-32, ] * 30,
+    "ub": [32, ] * 30,
+    "best": 0
+}
 
 # Generalized Griewank's Function
 def fun11(x):
@@ -79,6 +143,12 @@ def fun11(x):
     y = np.sum(x ** 2) / 4000 - np.prod(np.cos(x / np.sqrt(i))) + 1
     return y
 
+problem11 = {
+    "dim": 30,
+    "lb": [-600, ] * 30,
+    "ub": [600, ] * 30,
+    "best": 0
+}
 
 # Generalized Penalized Function 1
 def Ufun(x, a, k, m):
@@ -105,6 +175,12 @@ def fun12(x):
     y = sum_1 + sum_2
     return y
 
+problem12 = {
+    "dim": 30,
+    "lb": [-50 ] * 30,
+    "ub": [50, ] * 30,
+    "best": 0
+}
 
 # Generalized Penalized Function 2
 def fun13(x):
@@ -115,6 +191,12 @@ def fun13(x):
     +((x[dim - 1] - 1) ** 2) * (1 + (np.sin(2 * pi * x[dim - 1])) ** 2) + np.sum(Ufun(x, 5, 100, 4))
     return y
 
+problem13 = {
+    "dim": 30,
+    "lb": [-50 ] * 30,
+    "ub": [50, ] * 30,
+    "best": 0
+}
 
 # 固定多峰测试函数
 # Shekel's Foxholes Function
@@ -128,6 +210,12 @@ def fun14(x):
     y = (1 / 500 + np.sum(1 / (np.arange(1, 25 + 1) + bS))) ** (-1)
     return y
 
+problem14 = {
+    "dim": 2,
+    "lb": [-65.536, ] * 2,
+    "ub": [65.536, ] * 2,
+    "best": 0.99800383
+}
 
 # Kowalik's Function
 def fun15(x):
@@ -137,12 +225,24 @@ def fun15(x):
     y = np.sum((aK - ((x[0] * (bK ** 2 + x[1] * bK)) / (bK ** 2 + x[2] * bK + x[3]))) ** 2)
     return y
 
+problem15 = {
+    "dim": 4,
+    "lb": [-5, ] * 4,
+    "ub": [5, ] * 4,
+    "best": 0.0003075
+}
 
 # Six-Hump Camel-Back Function
 def fun16(x):
     y = 4 * (x[0] ** 2) - 2.1 * (x[0] ** 4) + (x[0] ** 6) / 3 + x[0] * x[1] - 4 * (x[1] ** 2) + 4 * (x[1] ** 4)
     return y
 
+problem16 = {
+    "dim": 2,
+    "lb": [-5, ] * 2,
+    "ub": [5, ] * 2,
+    "best": 1.03162845
+}
 
 # Branin Function
 def fun17(x):
@@ -151,6 +251,12 @@ def fun17(x):
         x[0]) + 10
     return y
 
+problem17 = {
+    "dim": 2,
+    "lb": [-5, 10],
+    "ub": [0, 15] ,
+    "best": 0.39788735
+}
 
 # Goldstein-Price Function
 def fun18(x):
@@ -160,18 +266,30 @@ def fun18(x):
                 18 - 32 * x[0] + 12 * (x[0] ** 2) + 48 * x[1] - 36 * x[0] * x[1] + 27 * (x[1] ** 2)))
     return y
 
+problem18 = {
+    "dim": 2,
+    "lb": [-2, ] * 2,
+    "ub": [2, ] * 2 ,
+    "best": 2.9999999
+}
 
 # Hartman's Family
 def fun19(X):
-    aH=np.array([[3,10,30],[0.1,10,35],[3,10,30],[0.1,10,35]])
-    cH=np.array([1,1.2,3,3.2])
-    pH=np.array([[0.3689,0.117,0.2673],[0.4699,0.4387,0.747],
-                [0.1091,0.8732,0.5547],[0.03815,0.5743,0.8828]])
-    O=0
-    for i in range(0,4):
-        O=O-cH[i]*np.exp(-(np.sum(aH[i]*((X-pH[i])**2))))
-    return O
+    aH = np.array([[3, 10, 30], [0.1, 10, 35], [3, 10, 30], [0.1, 10, 35]])
+    cH = np.array([1, 1.2, 3, 3.2])
+    pH = np.array([[0.3689, 0.117, 0.2673], [0.4699, 0.4387, 0.747],
+                   [0.1091, 0.8732, 0.5547], [0.03815, 0.5743, 0.8828]])
+    y = 0
+    for i in range(0, 4):
+        y = y - cH[i] * np.exp(-(np.sum(aH[i] * ((X - pH[i]) ** 2))))
+    return y
 
+problem19 = {
+    "dim": 3,
+    "lb": [0, ] * 3,
+    "ub": [1, ] * 3,
+    "best": -3.86278214
+}
 
 def fun20(x):
     aH = np.array([[10, 3, 17, 3.5, 1.7, 8], [0.05, 10, 17, 0.1, 8, 14], [3, 3.5, 1.7, 10, 17, 8],
@@ -185,6 +303,12 @@ def fun20(x):
         y = y - cH[i] * np.exp(-(np.sum(aH[i] * ((x - pH[i]) ** 2))))
     return y
 
+problem20 = {
+    "dim": 6,
+    "lb": [0, ] * 6,
+    "ub": [1, ] * 6,
+    "best": -3.32199517
+}
 
 # Shekel's Family
 def fun21(x):
@@ -197,6 +321,12 @@ def fun21(x):
         y = y - (np.sum((x - aSH[i]) ** 2) + cSH[i]) ** (-1)
     return y
 
+problem21 = {
+    "dim": 4,
+    "lb": [0, ] * 4,
+    "ub": [10, ] * 4,
+    "best": -10.1531996
+}
 
 def fun22(x):
     aSH = np.array([[4, 4, 4, 4], [1, 1, 1, 1], [8, 8, 8, 8], [6, 6, 6, 6], [3, 7, 3, 7],
@@ -208,6 +338,12 @@ def fun22(x):
         y = y - (np.sum((x - aSH[i]) ** 2) + cSH[i]) ** (-1)
     return y
 
+problem22 = {
+    "dim": 4,
+    "lb": [0, ] * 4,
+    "ub": [10, ] * 4,
+    "best": -10.4029405
+}
 
 def fun23(x):
     aSH = np.array([[4, 4, 4, 4], [1, 1, 1, 1], [8, 8, 8, 8], [6, 6, 6, 6], [3, 7, 3, 7],
@@ -218,3 +354,10 @@ def fun23(x):
     for i in range(0, 10):
         y = y - (np.sum((x - aSH[i]) ** 2) + cSH[i]) ** (-1)
     return y
+
+problem23 = {
+    "dim": 4,
+    "lb": [0, ] * 4,
+    "ub": [10, ] * 4,
+    "best": -10.5364
+}

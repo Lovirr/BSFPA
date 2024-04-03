@@ -5,7 +5,7 @@ from models.readtsp import read
 from models.tsp_model import TravellingSalesmanProblem
 from models.tsp_solution import generate_stable_solution
 
-filename = "chn31"
+filename = "ulysses22"
 DATA_POS = read(f"TSPLIB/{filename}.tsp")
 
 DATA_POS = np.array(DATA_POS)
@@ -25,7 +25,7 @@ problem = {
     "amend_position": generate_stable_solution
 }
 # 最大迭代次数
-epoch = 2000
+epoch = 3000
 
 # 种群数量
 pop_size = 50
